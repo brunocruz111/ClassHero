@@ -1,28 +1,74 @@
 using System;
+using System.Collections.Generic;
+
+class Aluno
+{
+    private List<double> notas = new List<double>();
+
+    // Método para adicionar uma nota, com validação de intervalo (0 a 10)
+    public void AdicionarNota(double nota)
+    {
+        if (nota >= 0 && nota <= 10)
+        {
+            notas.Add(nota);
+        }
+        else
+        {
+            Console.WriteLine("Nota inválida! Digite um valor entre 0 e 10.");
+        }
+    }
+
+    // Método para calcular a média
+    public double CalcularMedia()
+    {
+        if (notas.Count == 0)
+        {
+            return 0; // evita divisão por zero
+        }
+
+        double soma = 0;
+        foreach (double nota in notas)
+        {
+            soma += nota;
+        }
+        return soma / notas.Count;
+    }
+
+    // Método para verificar aprovação
+    public bool EstaAprovado()
+    {
+        return CalcularMedia() >= 6.0;
+    }
+}
 
 class Program
 {
     static void Main()
     {
-        int pares = 0;
-        int impares = 0;
+        Aluno aluno = new Aluno();
 
-        for (int i = 1; i <= 8; i++)
+        Console.WriteLine("Digite as notas do aluno (digite -1 para encerrar):");
+
+        while (true)
         {
-            Console.Write($"Digite o {i}º número: ");
-            int numero = int.Parse(Console.ReadLine());
+            Console.Write("Nota: ");
+            double entrada = double.Parse(Console.ReadLine());
 
-            if (numero % 2 == 0)
-            {
-                pares++;
-            }
-            else
-            {
-                impares++;
-            }
+            if (entrada == -1) break;
+
+            aluno.AdicionarNota(entrada);
         }
 
-        Console.WriteLine($"\nQuantidade de números pares: {pares}");
-        Console.WriteLine($"Quantidade de números ímpares: {impares}");
+        double media = aluno.CalcularMedia();
+        Console.WriteLine($"\nMédia do aluno: {media:F2}");
+
+        if (aluno.EstaAprovado())
+        {
+            Console.WriteLine("Situação: Aprovado!");
+        }
+        else
+        {
+            Console.WriteLine("Situação: Reprovado!");
+        }
     }
 }
