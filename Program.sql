@@ -1,5 +1,4 @@
-CREATE TABLE categorias (
-    categoria_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    nome VARCHAR2(50) NOT NULL UNIQUE,
-    ativo CHAR(1) DEFAULT 'S' CHECK (ativo IN ('S', 'N'))
-);
+SELECT nome,
+       INSTR(UPPER(nome), 'SOUZA') AS posicao
+FROM clientes
+WHERE UPPER(nome) LIKE '%SOUZA%';
