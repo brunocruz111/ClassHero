@@ -1,4 +1,3 @@
-SELECT nome,
-       INSTR(UPPER(nome), 'SOUZA') AS posicao
-FROM clientes
-WHERE UPPER(nome) LIKE '%SOUZA%';
+ALTER TABLE Empregado
+ADD CONSTRAINT chk_ativo
+CHECK (ativo IN (0, 1));
